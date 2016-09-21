@@ -38,15 +38,15 @@ local regressor_list_to_rename		// this is to rename the regressor variables lat
 
 foreach var in `epulist' {
 	* Identify abnormal months and store them into the local
-	levelsof date if (total_count_`var'/meanlag_`var' < 0.3) & (date >= td(`startdate')) & (date <= td(`enddate')), local(levels`var')
+	levelsof date if (total_count_`var'/meanlag_`var' < 0.3) & (date >= td(`startdate')) & (date <= td(`enddate')), local(abnormal`var')
 	
-	* Store if a newspaper is subject to imputation
-	local mcount`var' : word count `levels`var''
+	* Store if a newspaper is subject to imputation (at least 1 abnormal month detected)
+	local mcount`var' : word count `abnormal`var''
 	if `mcount`var'' != 0 {
 		local impute_list `impute_list' `var'
 	}
 	
-	* Store if a newspaper is going to be used as regressor
+	* Store if a newspaper is going to be used as regressor (no abnormal month detected)
 	if `mcount`var'' == 0 {
 		local regressor_list `regressor_list' ratio_`var'
 		local regressor_list_to_rename `regressor_list_to_rename' `var'
@@ -72,24 +72,24 @@ if `icount' != 0 {
 		* Store results to scalars
 		foreach num of numlist 1/`regressor_count' {
 			scalar regressor`num'_coef = coef[1,`num']
-			di "for `y' coeff is"
-			di regressor`num'_coef
 		}
 		local cons_num = `regressor_count' + 1
 		scalar constant = coef[1,`cons_num']
 		
-		* Form a part of equation (This is because we are not sure what will be the regressor variables) 
+		* Form a local for the equation for our imputation (This is because we are not sure what will be the regressor variables)
+				// Equation will be in the following format => constant + regressor1_coef * regressor1 + regressor2_coef * regressor2 .. so on for abnormal months!
 		local equation 
 		foreach num of numlist 1/`regressor_count' {
 			local regressor`num' : word `num' of `regressor_list'
 			local equation `equation' + regressor`num'_coef * `regressor`num''
 		}
+		local equation 		constant `equation'
 
 		* Impute 
 		generate adjepu_`y' = ratio_`y'
 
-		foreach month in `levels`y'' {
-			replace adjepu_`y' = constant `equation' if date == `month'
+		foreach month in `abnormal`y'' {
+			replace adjepu_`y' = `equation' if date == `month'
 		}
 	}
 }

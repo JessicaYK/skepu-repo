@@ -33,17 +33,6 @@ local lab01100101 			Kyunghyang_bigkinds
 local lab02100101 			Maeil_bigkinds
 local lab02100601 			KoreaEcon_bigkinds
 
-local Hankyoreh_nl			Hankyoreh_bigkinds
-local HankookIlbo_nl		Hankook_bigkinds
-local Kyunghyang_nl			Kyunghyang_bigkinds
-local MaeilEconomic_nl		Maeil_bigkinds
-local KoreaEconomic_nl		KoreaEcon_bigkinds
-local donga_nl				Donga_own
-local donga_naver_nl		Donga_naver
-local kyunghyang_naver_nl	Kyunghyang_naver
-local maeil_naver_nl		Maeil_naver
-local hankyoreh_naver_nl	Hankyoreh_naver			// These are new labels (nl), which are going to be used later.
-
 * For variable names
 local vardongapre2010epu	epu_ori_Donga_own
 local vardongapre2010total	total_ori_Donga_own

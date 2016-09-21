@@ -13,6 +13,9 @@ This README file describes how the folders are structured in the "South Korea EP
 # documentation:
 	This folder includes all the documentations for the construction of the South Korea EPU index,
 	including memo.
+
+# OLD:
+	This folder contains old code and data (used in 2014-2015)
 	
 # output:
 	This folder includes outputs from the codes, mainly,
@@ -31,4 +34,5 @@ This README file describes how the folders are structured in the "South Korea EP
 	This folder contains STATA scripts used for merging and cleaning, plotting, regressions, and construction
 	of indices. In order to replicate all the results, please read the "README" file inside the "scripts-stata"
 	folder. 
+
 	

@@ -34,6 +34,8 @@ foreach news in `epulist' {
 	summ adjepu_`news' if date >= td(`startdate_std')	& date <= td(`enddate_std')	// to capture r(sd)
 	generate stdepu_`news' = adjepu_`news'/r(sd)
 	label var stdepu_`news' "Standardized adjusted epu: `news'"
+	
+	summ stdepu_`news'
 }
 
 

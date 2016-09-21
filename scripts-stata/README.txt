@@ -29,8 +29,3 @@ This README file describes how to use the STATA codes to generate the South Kore
 
    Note that you might have to fix the x-label intervals manually in the plotting to files to make 
    the plots look nicer.    
-
-
-# data:
-
-#
